@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mondrian Project</title>
+  <style>
+    /* 
+    Write your CSS here 
+    Gap Colour: #000
+    White: #F0F1EC
+    Red: #E72F24
+    Black: #232629
+    Blue: #004592
+    Yellow: #F9D01E
+
+    For dimensions, see dimensions.png image.
+    HINT: Remember you can't change the properties of grid lines.
+    But grid lines are transparent!
+    */
+    .flex-container{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .grid-container{
+      display: grid;
+      width: 748px;
+      height: 748px;
+      grid-template-columns: 320px 9px 198px 9px 153px 9px 50px;
+      grid-template-rows: 414px 9px 130px 10px 155px 9px 20px;
+    }
+    .gap{
+      background-color: black;
+      margin: 0px;
+      padding: 0px;
+    }
+    #red{
+      background-color: #E72F24;
+      margin: 0px;
+      padding: 0px;
+    }
+    #verticalgap1{
+      grid-area: 1 / 2 / -1 / 2 ;
+    }
+
+    #horizontalgap1{
+      grid-area: 2 / 1 / 2 / -1 ;
+    }
+
+    #verticalgap2{
+      grid-area: 2 / 6 / -1 / 7 ;
+    }
+
+    #blue{
+      background-color: #004592;
+      grid-area: 3/7/4/8;
+    }
+
+    #yellow{
+      background-color: yellow;
+      grid-area: 7 / 3 / -1 / 4 ;
+    }
+    #black{
+      background-color: rgb(48, 54, 54);
+      grid-area: 7 / 5 / -1 / 6 ;
+    }
+    #horizontalgap2{
+      grid-area: 6 / 1 / 6 / -2 ;
+    }
+    #shorthorizontalgap{
+      grid-area: 4/ 7 / 5 / -1;
+    }
+    #shortverticalgap{
+      grid-area: 7 / 4 / 8 / 5  ;
+    }
+    
+  </style>
+</head>
+
+<body>
+  <!-- Write your HTML here -->
+  <div class="flex-container">
+    <div class="grid-container">
+      <div id="red"></div>
+      <div class="gap" id="verticalgap1"></div>
+      <div class="gap" id="horizontalgap1"></div>
+      <div id="blue"></div>
+      <div id="yellow"></div>
+      <div class="gap" id="verticalgap2"></div>
+      <div class="gap" id="horizontalgap2"></div>
+      <div class="gap" id="shortverticalgap"></div>
+      <div class="gap" id="shorthorizontalgap"></div>
+      <div id="black"></div>
+    </div>
+  </div>
+</body>
+
+</html>
