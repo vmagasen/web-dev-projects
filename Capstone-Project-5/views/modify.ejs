@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Post</title>
+  <link rel="stylesheet" href="/styles/main.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>
+      <%= heading %>
+    </h1>
+    <% if (locals.post) { %>
+      <form id="editForm" method="post" action="/api/posts/<%=post.id%>">
+        <input type="text" name="title" value="<%=post.title %>">
+        <textarea name="content" rows="10"><%=post.content %></textarea>
+        <input type="text" name="author" value="<%=post.author %>">
+        <label for="rating">Rating</label>
+        <input id="rating" type="number" name="rating" min="1" max="5" value="<%=post.rating %>">
+        <button class="full-width" type="submit">
+          <%= submit %>
+        </button>
+      </form>
+      <% } else {%>
+        <form id="newPostForm" method="post" action="/api/posts">
+          <input type="text" name="title" placeholder="Title" required>
+          <textarea name="content" placeholder="Content" required rows="10"></textarea>
+          <input type="text" name="author" placeholder="Author" required>
+          <label for="rating">Rating</label>
+          <input id="rating" type="number" name="rating" min="1" max="5">
+          <label for="date-last-read">Date last read</label>
+          <input id="date-last-read" type="date" name="date">
+          <button class="full-width" type="submit">
+            <%= submit %>
+          </button>
+        </form>
+        <% } %>
+
+  </div>
+</body>
+
+</html>
