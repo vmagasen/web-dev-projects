@@ -21,15 +21,16 @@
             <%=book.title%>
           </h2>
           <small>
-            Last read: <%=book.date %>
+            <% let date = new Date(book.date_last_read) %>
+            Last read: <%= date.getFullYear()%>-<%= date.getMonth()+1 %>-<%= date.getDate() %>
           </small>
           <p>
-            <%=book.content%>
+            <%=book.notes%>
           </p>
           <small>By: <%=book.author%> </small>
           <small>Rating: <%=book.rating%>/5</small>
           <a class="edit" href="/edit/<%= book.id %>">Edit</a>
-          <a class="delete" href="/api/posts/delete/<%= book.id %>">Delete</a>
+          <a class="delete" href="/api/books/delete/<%= book.id %>">Delete</a>
         </li>
         <% }); %>
     </ul>

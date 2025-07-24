@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Edit Post</title>
   <link rel="stylesheet" href="/styles/main.css">
+  <!-- Flatpickr CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
 </head>
 
 <body>
@@ -13,26 +16,34 @@
     <h1>
       <%= heading %>
     </h1>
-    <% if (locals.post) { %>
-      <form id="editForm" method="post" action="/api/posts/<%=post.id%>">
-        <input type="text" name="title" value="<%=post.title %>">
-        <textarea name="content" rows="10"><%=post.content %></textarea>
-        <input type="text" name="author" value="<%=post.author %>">
+    <% if (locals.book) { %>
+      <form id="editForm" method="post" action="/api/books/<%=book.id%>">
+        <input type="text" name="title" value="<%=book.title %>" required>
+        <textarea name="notes" required rows="10"><%=book.notes %></textarea>
+        <input type="text" name="author" required value="<%=book.author %>">
         <label for="rating">Rating</label>
-        <input id="rating" type="number" name="rating" min="1" max="5" value="<%=post.rating %>">
+        <input id="rating" type="number" required name="rating" min="1" max="5" value="<%=book.rating %>">
+        <% let date = new Date(book.date_last_read)%>
+        <label for="date_last_read">Date last read</label>
+        <input type="date"
+           id="date_last_read"
+           name="date_last_read"
+           value="<%= date.getFullYear()%>-<%= date.getMonth()+1 %>-<%= date.getDate() %>"
+           placeholder="<%= date.getFullYear()%>-<%= date.getMonth()+1 %>-<%= date.getDate() %>"
+           required>
         <button class="full-width" type="submit">
           <%= submit %>
         </button>
       </form>
       <% } else {%>
-        <form id="newPostForm" method="post" action="/api/posts">
+        <form id="newPostForm" method="post" action="/api/books">
           <input type="text" name="title" placeholder="Title" required>
-          <textarea name="content" placeholder="Content" required rows="10"></textarea>
+          <textarea name="notes" placeholder="Content" required rows="10"></textarea>
           <input type="text" name="author" placeholder="Author" required>
           <label for="rating">Rating</label>
-          <input id="rating" type="number" name="rating" min="1" max="5">
-          <label for="date-last-read">Date last read</label>
-          <input id="date-last-read" type="date" name="date">
+          <input id="rating" type="number" required name="rating" min="1" max="5">
+          <label for="date_last_read">Date last read</label>
+          <input id="date_last_read" type="date" name="date_last_read">
           <button class="full-width" type="submit">
             <%= submit %>
           </button>
@@ -42,4 +53,11 @@
   </div>
 </body>
 
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+  flatpickr("#date_last_read", {
+    dateFormat: "Y-m-d" // yyyy-mm-dd
+  });
+</script>
 </html>

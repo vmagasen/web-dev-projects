@@ -57,38 +57,30 @@ async function getBooks() {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//GET All posts
+//GET All book
 
-app.get("/posts", async (req, res) => {
+app.get("/books", async (req, res) => {
   try{
     books = await getBooks();
-  /*res.render("index.ejs", {
-    listTitle: "Today",
-    listItems: items,
-  }); */
   res.json(books);
   } catch (err){
-    console.error("Error in /posts:", err);
+    console.error("Error in /books:", err);
     res.status(500).json({ error: "Failed to fetch books" });
   }
 });
-/*
-app.get("/posts", (req, res) =>{
-  res.json(books);
-}) */
 
-//GET a specific post by id
+//GET a specific book by id
 
-app.get("/posts/:id", (req, res) =>{
+app.get("/books/:id", (req, res) =>{
   const id = parseInt(req.params.id);
-  const foundPost = books.find((book) => book.id === id);
-  res.json(foundPost);
+  const foundBooks = books.find((book) => book.id === id);
+  res.json(foundBooks);
 })
 
-//POST a new post
+//POST a new book
 
-app.post("/posts", (req, res) =>{
-  const newPost = {
+app.post("/books", async (req, res) =>{
+  const newBook = {
     id: books.length + 1,
     title: req.body.title,
     notes: req.body.notes,
@@ -96,42 +88,72 @@ app.post("/posts", (req, res) =>{
     rating: req.body.rating,
     date_last_read: req.body.date_last_read
   };
-  posts.push(newPost);
-  console.log(posts.slice(-1));
-  res.json(newPost);
+  const { title, author, rating, date_last_read, notes } = newBook;
+  try{
+    await db.query(
+  "INSERT INTO books_read (title, author, rating, date_last_read, notes) VALUES ($1, $2, $3, $4, $5)",
+  [title, author, rating, date_last_read, notes]
+); res.json(newBook);
+  } catch(err) {
+    console.error("Error in /books (post):", err);
+    res.status(500).json({ error: "Failed to add book" });
+  }
+  
 })
 
-//UPDATE a post
+//UPDATE a book
 
-app.patch("/posts/:id", (req, res) =>{
+app.patch("/books/:id", async (req, res) =>{
   const id = parseInt(req.params.id);
-  const existingPost = posts.find((book) => book.id === id);
-  const replacePost = {
+  const existingBook = books.find((book) => book.id === id);
+  const replaceBook = {
     id: id,
-    title: req.body.title || existingPost.title,
-    notes: req.body.notes || existingPost.notes,
-    author: req.body.author || existingPost.author,
-    rating: req.body.rating || existingPost.rating,
-    date_last_read: req.body.date_last_read || existingPost.date_last_read
+    title: req.body.title || existingBook.title,
+    notes: req.body.notes || existingBook.notes,
+    author: req.body.author || existingBook.author,
+    rating: req.body.rating || existingBook.rating,
+    date_last_read: req.body.date_last_read || existingBook.date_last_read
   };
-  const searchIndex = books.findIndex((book) => book.id === id);
-  books[searchIndex] = replacePost;
-  console.log(books[searchIndex]);
-  res.json(replacePost);
+  let { title, author, rating, date_last_read, notes } = replaceBook;
+  console.log("before parse: "+date_last_read);
+  if (typeof date_last_read === "string" ){
+      //const [day, month, year] = date_last_read.split('-');
+      const dateObj = new Date(date_last_read);
+      date_last_read = dateObj;
+  }
+  try{
+    console.log("Parsed: " + date_last_read)
+    await db.query(
+  `UPDATE books_read 
+  SET 
+    title = $1,
+    author = $2,
+    rating = $3,
+    date_last_read = $4,
+    notes = $5
+  WHERE 
+    id = $6
+  `,
+  [title, author, rating, date_last_read, notes, id]
+); 
+  res.json(replaceBook);
+  } catch(err) {
+    console.error("Error in /books (patch):", err);
+    res.status(500).json({ error: "Failed to update book" });
+  }
 })
 
-//DELETE a specific post by providing the post id.
+//DELETE a specific book by providing the book id.
 
-app.delete("/posts/:id", (req, res) => {
+app.delete("/books/:id", async (req, res) => {
   const id =parseInt(req.params.id);
-  const searchIndex = books.findIndex((book) => book.id == id);
-  if (searchIndex > -1){
-    books.splice(searchIndex, 1);
+ try{
+    await db.query("DELETE FROM books_read WHERE id = $1", [id])
     res.sendStatus(200);
-  } else {
+  } catch {
     res
       .status(404)
-      .json({error: `Post with id ${id} not found. No post deleted.`});
+      .json({error: `Book with id ${id} not found. No books deleted.`});
   }
 });
 
