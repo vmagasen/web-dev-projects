@@ -1,0 +1,205 @@
+
+html{
+    padding: 0;
+    margin: 0;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url("./assets/background.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    width: 100%;
+}
+.background-overlay{
+    background-color: rgba(202, 202, 202, 0.671);
+    min-height: 100vh;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    padding-top: 25px;
+    display: flex;
+    flex-direction: column;
+}
+
+h1{
+    font-size: xxx-large;
+}
+h2{
+    font-size: x-large;
+}
+
+/*Header styles */
+header {
+    background-color: rgba(12, 15, 17, 0.719);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 25px 30px 25px 30px;
+    margin: 0px 25px 25px 25px;
+    border-radius: 25px;
+}
+header a{
+    color: white;
+}
+header ul{
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+header ul li{
+    margin: 0 15px 0 15px;
+}
+header a {
+    text-decoration: none;
+}
+
+/* Hero Section */
+
+.hero-section{
+    display: flex;
+    flex-direction: column;
+    min-height: 50vh;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.hero-section h1{
+    margin: 5px;
+}
+.hero-section h2 {
+    margin: 5px;
+    font-size: large
+}
+.hero-section span{
+    font-style: italic;
+    margin-top: 35px;
+}
+
+/* About Section */
+.about-section{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: rgba(255, 255, 255, 0.81);
+    border-radius: 25px;
+    margin: 25px;
+    padding: 30px;
+    max-width: 1200px;
+    align-self: center;
+}
+.about-section div {
+    display: flex;
+    flex: 50%;
+    flex-direction: column;
+    justify-content: center;
+    padding: 15px;
+}
+.about-section img {
+    border-radius: 25px;
+    width: 100%;
+    max-width: 500px;
+    align-self: center;
+}
+
+/*Project Section */
+.project-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 35px;
+}
+.project-section .card-container{
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.project-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: whitesmoke;
+    padding: 5px 15px 5px 15px;
+    border-radius: 15px;
+    min-height: 250px;
+    text-align: center;
+}
+
+/* Contact Section */
+
+.contact-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 35px;
+}
+.contact-container {
+    background-color: rgba(255, 255, 255, 0.81);
+    border-radius: 25px;
+    padding: 10px 30px 30px 30px;
+    max-width: 1200px;
+    min-width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.contact-container form{
+    display: flex;
+    flex-direction: column;
+}
+.contact-container label{
+    display: block;
+}
+
+.contact-container input{
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+    align-self: center;
+}
+
+#submit{
+    width: 25%;
+    align-self: end;
+}
+
+@media (max-width: 400px) {
+    .background-overlay{
+        padding: 0;
+    }
+    header{
+        flex-direction: row;
+        align-items: center;
+        text-align: center;
+        margin: 0;
+        border-radius: 0;
+    }
+    header nav{
+        display: flex;
+        justify-content: center;
+    }
+    header ul {
+        flex-direction: column;
+        justify-content: center;
+    }
+    header ul li {
+        margin-top: 15px;
+    }
+}
+
+@media (max-width: 600px){
+    .about-section{
+        flex-direction: column;
+    }
+}
